@@ -1,12 +1,11 @@
 const fastify = require('fastify')();
-//fastify.register(require('fastify-mongodb'), {
-    // force to close the mongodb connection when app stopped
-    // the default value is false
-  // forceClose: true,
-   //url: 'mongodb://mongo/mydb'
- //});
-//routes
+//Route Plugins
+
 fastify.register(require('./routes/socity'),{prefix:'/socity'});
+fastify.register(require('./routes/person'),{prefix:'/person'});
+fastify.register(require('./routes/building'),{prefix:'/building'});
+fastify.register(require('./routes/flat'),{prefix:'/flat'});
+fastify.register(require('./routes/maintenance'),{prefix:'/maintenance'});
 
 module.exports = {
     fastify

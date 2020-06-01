@@ -19,6 +19,7 @@
   "homepage": "https://github.com/sanchithoza/coopSocity-api#readme",
   "dependencies": {
     "fastify": "^2.13.0",
+    "mongodb": "^3.5.8",
     "mongoose": "^5.9.7"
   }
 }

@@ -1,21 +1,33 @@
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/test',{ useNewUrlParser: true,useUnifiedTopology: true });
+require('../db/connection');
+const Socity = require('../models/socity');
+
 
 module.exports = function (fastify, options, done) {
-  const demo = mongoose.model('demo',{name:'string'});  
-  
-    fastify.get('/', (request, reply) => {
-      
-      reply.send('added');
+  fastify.get('/', (request, reply) => {
+    Socity.find().then((docs) => {
+      reply.send(docs);
+    }).catch((error)=>{
+      reply.send(error);
+    })
+  });
+  fastify.post('/add', async (request, reply) => {
+    const data = new Socity(request.body);
+    await data.save().then(() => {
+      reply.status(200).send(data);
+    }).catch((error) => {
+      reply.status(400).send(error);
+    })
+  });
+  /*fastify.delete('/:name', async (request, reply) => {
+    const query = request.params;
+
+    demo.deleteOne(query).then((docs, err) => {
+      console.log('deleted', docs);
+
     });
-    fastify.post('/add',async (request,reply)=>{
-     
-      const data = new demo(request.body);
-      await data.save().then(() => console.log('meow'));   
-      demo.find().then((docs,err)=> {
-        console.log(docs);
-        reply.send(docs);        
-      });
-    });
+  });
+  fastify.patch('/update',async (request,reply)=>{
+    await demo.findOneAndUpdate({name:'oza'})
+  });*/
   done()
 };
