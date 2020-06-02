@@ -18,5 +18,12 @@ module.exports = function(fastify,option,done){
             reply.send(error);
         });
     });
+    fastify.post('/find',(request,reply)=>{
+        Person.find(request.body).then((docs)=>{
+            reply.status(200).send(docs);
+        }).catch((error)=>{
+            reply.status(400).send(error);
+        })
+    })
     done();
 }

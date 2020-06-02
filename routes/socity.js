@@ -20,6 +20,13 @@ module.exports = function (fastify, options, done) {
       reply.status(400).send(error);
     })
   });
+  fastify.post('/find',(request,reply)=>{
+    Socity.find(request.body).then((docs)=>{
+        reply.status(200).send(docs);
+    }).catch((error)=>{
+        reply.status(400).send(error);
+    })
+})
   /*fastify.delete('/:name', async (request, reply) => {
     const query = request.params;
 

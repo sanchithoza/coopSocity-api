@@ -15,25 +15,28 @@
 <body>
  
     <div id="navbar">
-        <a class="active" href="socity_master.html">Socity</a>
+        <a href="socity_master.html">Socity</a>
         <a href="building_master.html">Building</a>
-        <a href="flat_master.html">Flat</a>
+        <a class="active" href="flat_master.html">Flat</a>
       </div>
     <div class="container">
-        <h2>Socity Master</h2>
+        <h2>Flat Master</h2>
         <form>
             <div class="form-group">
-                <label for="name">Socity Name:</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter Socity Name" name="name">
+                <label for="socityName">Select Socity Name:</label>
+                <select class="form-control" id="socityName">
+                </select>
             </div>
             <div class="form-group">
-                <label for="date">Registration Date:</label>
-                <input type="date" class="form-control" id="date" name="date">
+                <label for="buildingName">Select Building Name:</label>
+                    <select class="form-control" id="buildingName">
+                </select>
             </div>
             <div class="form-group">
-                <label for="address">Address:</label>
-                <textarea class="form-control" rows="3" id="address"></textarea>
+                <label for="name">Flat Number:</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter Flat Number" name="name">
             </div>
+
             <button id="submit" type="button" class="btn btn-primary">Submit</button>
         </form>
         <br>
@@ -41,9 +44,9 @@
             <thead>
                 <tr>
                     <th>id</th>
-                    <th>Socity Name</th>
-                    <th>Address</th>
-                    <th>Registration Date</th>
+                    <th>Flat Number</th>
+                    <th>Socity Id</th>
+                    <th>Building Id</th>
                 </tr>
             </thead>
             <tbody id="record">
@@ -55,22 +58,30 @@
         $(document).ready(function () {
             $.get("http://localhost:3000/socity", function (data, status) {
                 data.forEach(element => {
-                    $("#record").append("<tr><td>" + element._id + "</td><td>" + element.name + "</td><td>" + element.address + "</td><td>" + element.regDate + "</td></tr>");
+                    $("#socityName").append("<option value=" + element._id + ">" + element.name + "</option>");
+                });
+            });
+            $.get("http://localhost:3000/building", function (data, status) {
+                data.forEach(element => {
+                    $("#buildingName").append("<option value=" + element._id + ">" + element.name + "</option>");
+                });
+            });
+            $.get("http://localhost:3000/flat", function (data, status) {
+                data.forEach(element => {
+                    $("#record").append("<tr><td>" + element._id + "</td><td>" + element.name + "</td><td>" + element.socityId + "</td><td>" + element.buildingId + "</td></tr>");
                 });
             });
             $("#submit").click(function () {
-                console.log($('#name').val());
-
                 $.ajax({
-                    url: "http://localhost:3000/socity/add",
+                    url: "http://localhost:3000/flat/add",
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     type: "POST",
                     data: JSON.stringify({
                         "name": $('#name').val(),
-                        "address": $('#address').val(),
-                        "regDate": $('#date').val()
+                        "socityId": $('#socityName').val(),
+                        "buildingId": $('#buildingName').val()
                     }),
 
                     success: function (data, textStatus, jqXHR) {
@@ -82,6 +93,7 @@
                     }
 
                 });
+
             });
 
 
