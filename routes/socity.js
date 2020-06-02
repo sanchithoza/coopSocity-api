@@ -11,6 +11,8 @@ module.exports = function (fastify, options, done) {
     })
   });
   fastify.post('/add', async (request, reply) => {
+    console.log(request.body);
+    
     const data = new Socity(request.body);
     await data.save().then(() => {
       reply.status(200).send(data);

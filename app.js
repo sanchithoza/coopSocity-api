@@ -1,4 +1,9 @@
 const fastify = require('fastify')();
+
+fastify.register(require('fastify-cors'), { 
+    origin: true
+  })
+
 //Route Plugins
 
 fastify.register(require('./routes/socity'),{prefix:'/socity'});
