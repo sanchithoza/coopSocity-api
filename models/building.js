@@ -9,7 +9,7 @@ const Building = mongoose.model('building',{
         type:String,
         required:true
     },
-    socityId:{
+    socity:{
         type:String,
     }
 });

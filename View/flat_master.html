@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>Co-Op-Socity</title>
     <meta charset="utf-8">
@@ -11,14 +10,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
-
 <body>
- 
     <div id="navbar">
         <a href="socity_master.html">Socity</a>
         <a href="building_master.html">Building</a>
         <a class="active" href="flat_master.html">Flat</a>
-      </div>
+    </div>
     <div class="container">
         <h2>Flat Master</h2>
         <form>
@@ -29,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label for="buildingName">Select Building Name:</label>
-                    <select class="form-control" id="buildingName">
+                <select class="form-control" id="buildingName">
                 </select>
             </div>
             <div class="form-group">
@@ -53,7 +50,6 @@
             </tbody>
         </table>
     </div>
-
     <script>
         $(document).ready(function () {
             $.get("http://localhost:3000/socity", function (data, status) {
@@ -80,10 +76,9 @@
                     type: "POST",
                     data: JSON.stringify({
                         "name": $('#name').val(),
-                        "socityId": $('#socityName').val(),
-                        "buildingId": $('#buildingName').val()
+                        "socity": $('#socityName').val(),
+                        "building": $('#buildingName').val()
                     }),
-
                     success: function (data, textStatus, jqXHR) {
                         console.log(data, textStatus, jqXHR);
                         location.reload();
@@ -91,14 +86,9 @@
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert(errorThrown, textStatus, jqXHR);
                     }
-
                 });
-
             });
-
-
         });
     </script>
 </body>
-
 </html>

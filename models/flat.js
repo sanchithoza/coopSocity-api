@@ -1,21 +1,28 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 // model definatino
 /*
     "name":"404",
     "buildingId":"wingA1234",
     "socityId":"socityId"
 */
-const Flat = mongoose.model('flat',{
-    name:{
-        type:String,
-        required:true
+const schema = new Schema({
+    name: {
+        type: String,
+        required: true
     },
-    buildingId:{
-        type:String,
+    building: { 
+        type: mongoose.Types.ObjectId, ref: 'building' 
     },
-    socityId:{
-        type:String,
+    socity: { 
+        type: mongoose.Types.ObjectId, ref: 'socity' 
     }
 });
+
+schema.pre('find', () => console.log('Hello from pre find'));
+
+
+const Flat = mongoose.model('flat', schema);
+
 
 module.exports = Flat;

@@ -25,7 +25,7 @@ const Person = mongoose.model('person',{
         type:String,
         required:true
     },
-    flatid:{
+    flat:{
         type:String
     },
     role:{
