@@ -12,26 +12,26 @@ const mongoose = require('mongoose');
 */
 const Maintenance = mongoose.model('maintenance',{
     socity:{
-        type:String,
+        type:mongoose.Types.ObjectId,
         required:true
     },
     building:{
-        type:String
+        type:mongoose.Types.ObjectId
     },
     flat:{
-        type:String,
+        type:mongoose.Types.ObjectId,
         required:true
     },
     person:{
-        type:String,
+        type:mongoose.Types.ObjectId,
         required:true
     },
     fromMonth:{
-        type:String,
+        type:Date,
         required:true
     },
     toMonth:{
-        type:String,
+        type:Date,
         required:true
     },
     amount:{

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Co-Op-Socity</title>
     <meta charset="utf-8">
@@ -10,16 +11,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
+
 <body>
     <div id="navbar">
         <a href="socity_master.html">Socity</a>
         <a href="building_master.html">Building</a>
-        <a class="active" href="flat_master.html">Flat</a>
+        <a href="flat_master.html">Flat</a>
         <a href="person_master.html">Person</a>
-        <a href="maintenance.html">Maintenance</a>
+        <a class="active" href="maintenance.html">Maintenance</a>
     </div>
     <div class="container">
-        <h2>Flat Master</h2>
+        <h2>Person Master</h2>
         <form>
             <div class="form-group">
                 <label for="socityName">Select Socity Name:</label>
@@ -32,25 +34,52 @@
                 </select>
             </div>
             <div class="form-group">
-                <label for="name">Flat Number:</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter Flat Number" name="name">
+                <label for="flatName">Select Flat Number:</label>
+                <select class="form-control" id="flatName">
+                </select>
             </div>
             <div class="form-group">
-                <label for="maintenancePerMonth">Flat Number:</label>
-                <input type="text" class="form-control" id="maintenancePerMonth" placeholder="Enter Maintenance Per Month" name="maintenancePerMonth">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter Person Name" name="name">
             </div>
-
+            <div class="form-group">
+                <label for="mobile">Mobile Number:</label>
+                <input type="text" class="form-control" id="mobile" placeholder="Enter Mobile Number" name="mobile">
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address:</label>
+                <input type="text" class="form-control" id="email" placeholder="Enter Email Address" name="email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password">
+            </div>
+            <div class="form-group">
+                <label for="password">Confirm Password:</label>
+                <input type="cnfPassword" class="form-control" id="cnfPassword" placeholder="Confirm Password"
+                    name="cnfPassword">
+            </div>
+            <div class="form-group">
+                <label for="flatName">Select Role in Socity:</label>
+                <select class="form-control" id="role">
+                    <option value="member">Member</option>
+                    <option value="commity_member">Commity Member</option>
+                    <option value="secratery">Secratery</option>
+                    <option value="precident">Precident</option>
+                </select>
+            </div>
             <button id="submit" type="button" class="btn btn-primary">Submit</button>
         </form>
         <br>
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>id</th>
+                    <th>Role</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Email</th>
+                    <th>Building </th>
                     <th>Flat Number</th>
-                    <th>Maintenance/Month</th>
-                    <th>Socity Id</th>
-                    <th>Building Id</th>
                 </tr>
             </thead>
             <tbody id="record">
@@ -70,24 +99,33 @@
                 });
             });
             $.get("http://localhost:3000/flat", function (data, status) {
-                console.log(data);
-                
                 data.forEach(element => {
-                    $("#record").append("<tr><td>" + element._id + "</td><td>" + element.name + "</td><td>" + element.maintenancePerMonth + "</td><td>" + element.socity.name + "</td><td>" + element.building.name + "</td></tr>");
+                    $("#flatName").append("<option value=" + element._id + ">" + element.name + "</option>");
+                });
+            });
+            $.get("http://localhost:3000/person", function (data, status) {
+                console.log(data);
+
+                data.forEach(element => {
+                    $("#record").append("<tr><td>" + element.role + "</td><td>" + element.name + "</td><td>" + element.mobile + "</td><td>" + element.email + "</td><td>" + element.building.name + "</td><td>" + element.flat.name + "</td></tr>");
                 });
             });
             $("#submit").click(function () {
                 $.ajax({
-                    url: "http://localhost:3000/flat/add",
+                    url: "http://localhost:3000/person/add",
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     type: "POST",
                     data: JSON.stringify({
-                        "name": $('#name').val(),
                         "socity": $('#socityName').val(),
                         "building": $('#buildingName').val(),
-                        "maintenancePerMonth":$('#maintenancePerMonth').val()
+                        "flat": $('#flatName').val(),
+                        "name": $('#name').val(),
+                        "email": $('#email').val(),
+                        "password": $('#cnfPassword').val(),
+                        "mobile": $('#mobile').val(),
+                        "role": $('#role').val()
                     }),
                     success: function (data, textStatus, jqXHR) {
                         console.log(data, textStatus, jqXHR);
@@ -101,4 +139,5 @@
         });
     </script>
 </body>
+
 </html>

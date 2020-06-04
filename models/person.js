@@ -2,11 +2,13 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 // model defenation
 /*
+    "socity":"socityid",
+    "building":"buildingid",
+    "flat":"1234",
     "name":"sanchit",
     "email":"sanchithoza@gmail.com",
     "password":"socity@1",
     "mobile":"9427343884",
-    "flatid":"1234",
     "role":"member"
 */
 const schema = new Schema({

@@ -3,8 +3,9 @@ const Schema = mongoose.Schema;
 // model definatino
 /*
     "name":"404",
-    "buildingId":"wingA1234",
-    "socityId":"socityId"
+    "building":"wingA1234",
+    "socity":"socityId",
+    maintenancePerMonth:400
 */
 const schema = new Schema({
     name: {
@@ -16,6 +17,10 @@ const schema = new Schema({
     },
     socity: { 
         type: mongoose.Types.ObjectId, ref: 'socity' 
+    },
+    maintenancePerMonth:{
+        type: Number,
+        required:true
     }
 });
 
