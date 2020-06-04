@@ -63,8 +63,10 @@
                 });
             });
             $.get("http://localhost:3000/flat", function (data, status) {
+                console.log(data);
+                
                 data.forEach(element => {
-                    $("#record").append("<tr><td>" + element._id + "</td><td>" + element.name + "</td><td>" + element.socityId + "</td><td>" + element.buildingId + "</td></tr>");
+                    $("#record").append("<tr><td>" + element._id + "</td><td>" + element.name + "</td><td>" + element.socity.name + "</td><td>" + element.building.name + "</td></tr>");
                 });
             });
             $("#submit").click(function () {

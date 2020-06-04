@@ -19,7 +19,7 @@ const schema = new Schema({
     }
 });
 
-schema.pre('find', () => console.log('Hello from pre find'));
+//schema.pre('find', () => console.log('Hello from pre find'));
 
 
 const Flat = mongoose.model('flat', schema);

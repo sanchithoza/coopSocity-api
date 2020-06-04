@@ -40,7 +40,7 @@
                 <tr>
                     <th>id</th>
                     <th>Building Name</th>
-                    <th>Socity Id</th>
+                    <th>Socity</th>
                 </tr>
             </thead>
             <tbody id="record">
@@ -57,7 +57,7 @@
             });
             $.get("http://localhost:3000/building", function (data, status) {
                 data.forEach(element => {
-                    $("#record").append("<tr><td>" + element._id + "</td><td>" + element.name + "</td><td>" + element.socityId + "</td></tr>");
+                    $("#record").append("<tr><td>" + element._id + "</td><td>" + element.name + "</td><td>" + element.socity.name + "</td></tr>");
                 });
             });
             $("#submit").click(function () {
@@ -69,7 +69,7 @@
                     type: "POST",
                     data: JSON.stringify({
                         "name": $('#name').val(),
-                        "socityId": $('#socityName').val()
+                        "socity": $('#socityName').val()
                     }),
 
                     success: function (data, textStatus, jqXHR) {

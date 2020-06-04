@@ -11,18 +11,18 @@ const mongoose = require('mongoose');
     "remark":"no remark"
 */
 const Maintenance = mongoose.model('maintenance',{
-    socityId:{
+    socity:{
         type:String,
         required:true
     },
-    buildingId:{
+    building:{
         type:String
     },
-    flatId:{
+    flat:{
         type:String,
         required:true
     },
-    personId:{
+    person:{
         type:String,
         required:true
     },

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const Schema = mongoose.Schema;
 // model defenation
 /*
     "name":"sanchit",
@@ -9,28 +9,35 @@ const mongoose = require('mongoose');
     "flatid":"1234",
     "role":"member"
 */
-const Person = mongoose.model('person',{
-    name:{
-        type:String,
-        required:true
+const schema = new Schema({
+    name: {
+        type: String,
+        required: true
     },
-    email:{
-        type:String,
+    email: {
+        type: String,
     },
-    password:{
-        type:String,
-        required:true
+    password: {
+        type: String,
+        required: true
     },
-    mobile:{
-        type:String,
-        required:true
+    mobile: {
+        type: String,
+        required: true
     },
-    flat:{
-        type:String
+    socity:{
+        type: mongoose.Types.ObjectId,ref:'socity'
     },
-    role:{
-        type:String
+    building:{
+        type: mongoose.Types.ObjectId,ref:'building'
+    },    
+    flat: {
+        type: mongoose.Types.ObjectId,ref:'flat'
+    },
+    role: {
+        type: String
     }
 });
+const Person = mongoose.model('person', schema);
 
 module.exports = Person;

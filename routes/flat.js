@@ -6,8 +6,6 @@ module.exports = function(fastify,option,done){
     fastify.post('/add',(request,reply)=>{
         request.body.socity = mongoose.Types.ObjectId(request.body.socity);
         request.body.building =  mongoose.Types.ObjectId(request.body.building);
-console.log(request.body);
-
         const data = new Flat(request.body);
         data.save().then(()=>{
             reply.status(200).send(data)

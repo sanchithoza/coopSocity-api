@@ -1,8 +1,12 @@
+const mongoose = require('mongoose');
 require('../db/connection');
 const Building = require('../models/building');
 
 module.exports = function(fastify,option,done){
     fastify.post('/add',(request,reply)=>{
+        request.body.socity = mongoose.Types.ObjectId(request.body.socity);
+      //  console.log(request.body);
+        
         const data = new Building(request.body);
 
         data.save().then(()=>{
@@ -12,7 +16,7 @@ module.exports = function(fastify,option,done){
         });
     });
     fastify.get('/',(request,reply)=>{
-        Building.find().then((docs)=>{
+        Building.find().populate('socity','name').then((docs)=>{
             reply.status(200).send(docs);
         }).catch((error)=>{
             reply.status(400).send(error);
