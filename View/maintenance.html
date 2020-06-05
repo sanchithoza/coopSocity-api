@@ -21,88 +21,121 @@
         <a class="active" href="maintenance.html">Maintenance</a>
     </div>
     <div class="container">
-        <h2>Person Master</h2>
-        <form>
-            <div class="form-group">
-                <label for="socityName">Select Socity Name:</label>
-                <select class="form-control" id="socityName">
-                </select>
+        <div class="row" style="text-align: center;">
+            <h2>Collect Maintenance</h2>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <form>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label for="socityName">Select Socity Name:</label>
+                            <select class="form-control" id="socityName">
+                                <option>---</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for=" buildingName">Select Building Name:</label>
+                            <select class="form-control" id="buildingName">
+                                <option>---</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="flatName">Select Flat Number:</label>
+                            <select class="form-control" id="flatName">
+                                <option>---</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="name">Name:</label>
+                            <span id="personId" value=""></span>
+                            <input type="text" class="form-control" id="name" placeholder="Enter Person Name"
+                                name="name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="date">Collection Date:</label>
+                            <input type="date" class="form-control" id="date" name="date">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="forTheMonth">For The Month:</label>
+                            <select class="form-control" id="forTheMonth">
+
+                            </select>
+                            <select class="form-control" id="year">
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for=" amount">Amount:</label>
+                            <input type="text" class="form-control" id="amount" placeholder="Enter Amount"
+                                name="amount">
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="remark">Remark:</label>
+                            <textarea class="form-control" rows="2" id="remark"></textarea>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <button id="submit" type="button" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="buildingName">Select Building Name:</label>
-                <select class="form-control" id="buildingName">
-                </select>
+            <div class="col-md-6">
+                <h6>Personl Account:</h6>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Perticular</th>
+                            <th>Dues</th>
+                            <th>Payments</th>
+                            <th>Balance</th>
+                        </tr>
+                    </thead>
+                    <tbody id="record">
+                    </tbody>
+                </table>
             </div>
-            <div class="form-group">
-                <label for="flatName">Select Flat Number:</label>
-                <select class="form-control" id="flatName">
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter Person Name" name="name">
-            </div>
-            <div class="form-group">
-                <label for="mobile">Mobile Number:</label>
-                <input type="text" class="form-control" id="mobile" placeholder="Enter Mobile Number" name="mobile">
-            </div>
-            <div class="form-group">
-                <label for="email">Email Address:</label>
-                <input type="text" class="form-control" id="email" placeholder="Enter Email Address" name="email">
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter Password" name="password">
-            </div>
-            <div class="form-group">
-                <label for="password">Confirm Password:</label>
-                <input type="cnfPassword" class="form-control" id="cnfPassword" placeholder="Confirm Password"
-                    name="cnfPassword">
-            </div>
-            <div class="form-group">
-                <label for="flatName">Select Role in Socity:</label>
-                <select class="form-control" id="role">
-                    <option value="member">Member</option>
-                    <option value="commity_member">Commity Member</option>
-                    <option value="secratery">Secratery</option>
-                    <option value="precident">Precident</option>
-                </select>
-            </div>
-            <button id="submit" type="button" class="btn btn-primary">Submit</button>
-        </form>
-        <br>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Role</th>
-                    <th>Name</th>
-                    <th>Mobile</th>
-                    <th>Email</th>
-                    <th>Building </th>
-                    <th>Flat Number</th>
-                </tr>
-            </thead>
-            <tbody id="record">
-            </tbody>
-        </table>
+        </div>
     </div>
     <script>
         $(document).ready(function () {
+            var field = document.querySelector('#date');
+            var date = new Date();
+
+            // Set the date
+            field.value = date.getFullYear().toString() + '-' + (date.getMonth() + 1).toString().padStart(2, 0) +
+                '-' + date.getDate().toString().padStart(2, 0);
+            let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            let year = new Date().getFullYear();
+            let month = new Date().getMonth();
+
+            for (let index = 0; index < months.length; index++) {
+                if (month === index) {
+                    $('#forTheMonth').append('<option selected value=' + months[index] + '>' + months[index] + '</option>');
+                } else {
+                    $('#forTheMonth').append('<option value=' + months[index] + '>' + months[index] + '</option>');
+                }
+
+            }
+            for (let index = year - 5; index < year + 5; index++) {
+                if (year === index) {
+                    $('#year').append('<option selected value=' + index + '>' + index + '</option>');
+                } else {
+                    $('#year').append('<option value=' + index + '>' + index + '</option>');
+                }
+
+            }
             $.get("http://localhost:3000/socity", function (data, status) {
                 data.forEach(element => {
                     $("#socityName").append("<option value=" + element._id + ">" + element.name + "</option>");
                 });
             });
-            $.get("http://localhost:3000/building", function (data, status) {
-                data.forEach(element => {
-                    $("#buildingName").append("<option value=" + element._id + ">" + element.name + "</option>");
-                });
-            });
-            $.get("http://localhost:3000/flat", function (data, status) {
+            /*$.get("http://localhost:3000/flat", function (data, status) {
                 data.forEach(element => {
                     $("#flatName").append("<option value=" + element._id + ">" + element.name + "</option>");
                 });
-            });
+            });*/
             $.get("http://localhost:3000/person", function (data, status) {
                 console.log(data);
 
@@ -112,7 +145,7 @@
             });
             $("#submit").click(function () {
                 $.ajax({
-                    url: "http://localhost:3000/person/add",
+                    url: "http://localhost:3000/account/maintenance",
                     headers: {
                         'Content-Type': 'application/json'
                     },
@@ -121,11 +154,12 @@
                         "socity": $('#socityName').val(),
                         "building": $('#buildingName').val(),
                         "flat": $('#flatName').val(),
-                        "name": $('#name').val(),
-                        "email": $('#email').val(),
-                        "password": $('#cnfPassword').val(),
-                        "mobile": $('#mobile').val(),
-                        "role": $('#role').val()
+                        "person": $('#personId').val(),
+                        "note": $('#forTheMonth').val() + '-' + $('#year').val(),
+                        "date": $('#date').val(),
+                        "category": "maintenance",
+                        "amount": $('#amount').val(),
+                        "remark": $('#remark').val()
                     }),
                     success: function (data, textStatus, jqXHR) {
                         console.log(data, textStatus, jqXHR);
@@ -136,6 +170,83 @@
                     }
                 });
             });
+
+            //on change events
+            $("#socityName").change(function () {
+                $.ajax({
+                    url: "http://localhost:3000/building/find",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    type: "POST",
+                    data: JSON.stringify({
+                        socity: $('#socityName').val()
+                    }),
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data, textStatus, jqXHR);
+                        //location.reload();
+                        data.forEach(element => {
+                            $("#buildingName").append("<option value=" + element._id + ">" + element.name + "</option>");
+                        });
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown, textStatus, jqXHR);
+                    }
+                });
+
+
+
+
+            });
+            $("#buildingName").change(function () {
+                $.ajax({
+                    url: "http://localhost:3000/flat/find",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    type: "POST",
+                    data: JSON.stringify({
+                        building: $('#buildingName').val()
+                    }),
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data, textStatus, jqXHR);
+                        $("#flatName").empty();
+                        $("#flatName").append("<option>---</option>");
+                        //location.reload();
+                        data.forEach(element => {
+                            $("#flatName").append("<option value=" + element._id + ">" + element.name + "</option>");
+                        });
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown, textStatus, jqXHR);
+                    }
+                });
+            });
+            $("#flatName").change(function () {
+                $.ajax({
+                    url: "http://localhost:3000/person/find",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    type: "POST",
+                    data: JSON.stringify({
+                        flat: $('#flatName').val()
+                    }),
+                    success: function (data, textStatus, jqXHR) {
+                        console.log(data[0].name);
+                        $("#name").val(data[0].name);
+                        $("#personId").val(data[0]._id);
+                        console.log($("#personId").val());
+
+                        //location.reload();
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown, textStatus, jqXHR);
+                    }
+                });
+            });
+
         });
     </script>
 </body>

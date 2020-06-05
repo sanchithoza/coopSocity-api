@@ -12,15 +12,15 @@ const schema = new Schema({
         type: String,
         required: true
     },
-    building: { 
-        type: mongoose.Types.ObjectId, ref: 'building' 
+    building: {
+        type: mongoose.Types.ObjectId, ref: 'building'
     },
-    socity: { 
-        type: mongoose.Types.ObjectId, ref: 'socity' 
+    socity: {
+        type: mongoose.Types.ObjectId, ref: 'socity'
     },
-    maintenancePerMonth:{
+    maintenancePerMonth: {
         type: Number,
-        required:true
+        required: true
     }
 });
 
