@@ -11,5 +11,12 @@ module.exports = function (fastify, option, done) {
             reply.status(400).send(error);
         });
     });
+    fastify.post('/getMaintenanceDetails',(request,reply)=>{
+        Account.find(request.body).populate('person','name').then((result)=>{
+            reply.status(200).send(result);
+        }).catch((error)=>{
+            reply.status(400).send(error);
+        });
+    });
     done();
 }

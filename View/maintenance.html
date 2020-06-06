@@ -81,15 +81,14 @@
                 </form>
             </div>
             <div class="col-md-6">
-                <h6>Personl Account:</h6>
+                <h6>Personl Account Of <b><span id="personName"></span></b></h6>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Date</th>
                             <th>Perticular</th>
                             <th>Dues</th>
                             <th>Payments</th>
-                            <th>Balance</th>
                         </tr>
                     </thead>
                     <tbody id="record">
@@ -136,13 +135,7 @@
                     $("#flatName").append("<option value=" + element._id + ">" + element.name + "</option>");
                 });
             });*/
-            $.get("http://localhost:3000/person", function (data, status) {
-                console.log(data);
 
-                data.forEach(element => {
-                    $("#record").append("<tr><td>" + element.role + "</td><td>" + element.name + "</td><td>" + element.mobile + "</td><td>" + element.email + "</td><td>" + element.building.name + "</td><td>" + element.flat.name + "</td></tr>");
-                });
-            });
             $("#submit").click(function () {
                 $.ajax({
                     url: "http://localhost:3000/account/maintenance",
@@ -193,10 +186,6 @@
                         alert(errorThrown, textStatus, jqXHR);
                     }
                 });
-
-
-
-
             });
             $("#buildingName").change(function () {
                 $.ajax({
@@ -233,11 +222,36 @@
                         flat: $('#flatName').val()
                     }),
                     success: function (data, textStatus, jqXHR) {
-                        console.log(data[0].name);
                         $("#name").val(data[0].name);
                         $("#personId").val(data[0]._id);
-                        console.log($("#personId").val());
+                        
+                        $.ajax({
+                            url: "http://localhost:3000/account/getMaintenanceDetails",
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            type: "POST",
+                            data: JSON.stringify({
+                                flat: $('#flatName').val()
+                            }),
+                            success: function (data, textStatus, jqXHR) {
+                                console.log("nested ajax", data);
+                                $('#personName').empty();
+                                $('#record').empty();
+                                $('#personName').append(data[0].person.name);
+                                
+                                data.forEach(element => {
+                                    if (element.category === "maintenance") {
+                                        $("#record").append("<tr><td>" + element.date + "</td><td>" + element.note + "</td><td></td><td>" + element.amount + "</td></tr>");
+                                    } else {
 
+                                    }
+                                });
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert(errorThrown, textStatus, jqXHR);
+                            }
+                        })
                         //location.reload();
 
                     },
@@ -245,6 +259,7 @@
                         alert(errorThrown, textStatus, jqXHR);
                     }
                 });
+
             });
 
         });
